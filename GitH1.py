@@ -9,9 +9,6 @@ def rastrigin(x: np.ndarray) -> float:
     A = 10
     return A * len(x) + np.sum(x ** 2 - A * np.cos(2 * math.pi * x))
 
-
-
-
 def decode_chromosome(bounds: list, n_bits: int, n_dim: int, chromosome: np.ndarray) -> np.ndarray:
     decoded_values = []
     lower_bound, upper_bound = bounds
@@ -155,5 +152,8 @@ if __name__ == '__main__':
             print(f"  -> Cel mai bun scor obținut (din {N_RUNS} rulări): {np.min(final_scores):.8f}")
             print(f"  -> Scorul mediu: {np.mean(final_scores):.8f}")
             print(f"  -> Deviația standard: {np.std(final_scores):.8f}")
+            if dim > 5:
+                print(f"  -> Solutia (primele 5 componente): {best_run_solution[:5]}")
+            else:
+                print(f"  -> Solutia (x): {best_run_solution}")
             print("-" * 70)
-
