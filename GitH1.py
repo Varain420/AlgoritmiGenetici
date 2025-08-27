@@ -63,7 +63,6 @@ def hybrid_genetic_algorithm(objective_func, bounds, n_dim, n_bits, n_iter, n_po
     chromosome_len = n_bits * n_dim
     pop = [np.random.randint(0, 2, chromosome_len) for _ in range(n_pop)]
     best_chromosome, best_eval = None, float('inf')
-    history = []
 
     for gen in range(n_iter):
         decoded_pop = [decode_chromosome(bounds, n_bits, n_dim, p) for p in pop]
@@ -75,7 +74,6 @@ def hybrid_genetic_algorithm(objective_func, bounds, n_dim, n_bits, n_iter, n_po
                 if verbose:
                     print(f"> Gen {gen}, Nou optim: f(x) = {best_eval:.8f}")
 
-        history.append(best_eval)
         selected = [selection_tournament(pop, scores) for _ in range(n_pop)]
 
         children = []
@@ -90,7 +88,7 @@ def hybrid_genetic_algorithm(objective_func, bounds, n_dim, n_bits, n_iter, n_po
         pop = children
 
     best_decoded = decode_chromosome(bounds, n_bits, n_dim, best_chromosome)
-    return best_decoded, best_eval, history
+    return best_decoded, best_eval
 
 
 if __name__ == '__main__':
@@ -118,7 +116,6 @@ if __name__ == '__main__':
             final_scores = []
             best_run_solution = None
             best_run_score = float('inf')
-            best_run_history = None
 
             start_time = time.time()
             for r in range(N_RUNS):
@@ -133,7 +130,6 @@ if __name__ == '__main__':
                 if score < best_run_score:
                     best_run_score = score
                     best_run_solution = solution
-                    best_run_history = history
 
             avg_duration = (time.time() - start_time) / N_RUNS
 
@@ -148,6 +144,7 @@ if __name__ == '__main__':
             else:
                 print(f"  -> Solutia (x): {best_run_solution}")
             print("-" * 70)
+
 
 
 
