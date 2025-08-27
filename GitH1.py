@@ -101,9 +101,6 @@ if __name__ == '__main__':
     HC_ATTEMPTS = 20
     N_RUNS = 30
 
-    if not os.path.exists("results"):
-        os.makedirs("results")
-
     functions_to_test = {
         "Rastrigin": (rastrigin, [-5.12, 5.12])
     }
@@ -151,5 +148,6 @@ if __name__ == '__main__':
             else:
                 print(f"  -> Solutia (x): {best_run_solution}")
             print("-" * 70)
+
 
 
