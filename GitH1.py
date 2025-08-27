@@ -96,9 +96,6 @@ def hybrid_genetic_algorithm(objective_func, bounds, n_dim, n_bits, n_iter, n_po
     return best_decoded, best_eval, history
 
 
-
-
-
 if __name__ == '__main__':
     N_BITS = 24
     N_ITER = 200
@@ -157,3 +154,4 @@ if __name__ == '__main__':
             else:
                 print(f"  -> Solutia (x): {best_run_solution}")
             print("-" * 70)
+
