@@ -1,9 +1,6 @@
 import numpy as np
 import math
 import time
-import os
-
-
 
 def rastrigin(x: np.ndarray) -> float:
     A = 10
@@ -154,4 +151,5 @@ if __name__ == '__main__':
             else:
                 print(f"  -> Solutia (x): {best_run_solution}")
             print("-" * 70)
+
 
