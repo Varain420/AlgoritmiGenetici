@@ -3,8 +3,7 @@ import math
 import time
 import os
 
-# --- FIX PENTRU MEDII FARA INTERFATA GRAFICA (ex: PyCharm, servere) ---
-# Se seteaza un backend non-interactiv inainte de a importa pyplot.
+
 import matplotlib
 
 matplotlib.use('Agg')
@@ -249,7 +248,7 @@ if __name__ == '__main__':
     dimensions_to_test = [2, 30, 100]
 
     for func_name, (func, bounds) in functions_to_test.items():
-        # NOU: Calculam dinamic numarul de biti necesar pentru aceasta functie
+       
         n_bits = calculate_n_bits(bounds, PRECISION)
 
         for dim in dimensions_to_test:
@@ -301,3 +300,4 @@ if __name__ == '__main__':
                 plot_solution_space(func, bounds, best_run_solution, title)
 
             save_summary_to_txt(title, final_scores, avg_duration, best_run_solution)
+
