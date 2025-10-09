@@ -80,7 +80,7 @@ def hill_climbing(objective_func, bounds, n_bits, n_dim, chromosome, max_attempt
     return current_best_chromosome
 
 
-def selection_tournament_correct(pop, scores, k=3):
+def selection_tournament_correct(pop, scores, k=7):
     scores = np.asarray(scores)
     tournament_ix = np.random.choice(len(pop), size=k, replace=False)
     tournament_scores = scores[tournament_ix]
@@ -304,3 +304,4 @@ if __name__ == '__main__':
                 plot_solution_space(func, bounds, best_run_solution, title)
 
             save_summary_to_txt(title, final_scores, avg_duration, best_run_solution)
+
