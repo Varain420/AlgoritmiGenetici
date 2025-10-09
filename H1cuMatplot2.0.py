@@ -80,13 +80,14 @@ def hill_climbing(objective_func, bounds, n_bits, n_dim, chromosome, max_attempt
     return current_best_chromosome
 
 
-def selection_tournament(pop, scores, k=3):
-    selection_ix = np.random.randint(len(pop))
-    for _ in range(k - 1):
-        ix = np.random.randint(len(pop))
-        if scores[ix] < scores[selection_ix]:
-            selection_ix = ix
-    return pop[selection_ix]
+def selection_tournament_correct(pop, scores, k=3):
+    scores = np.asarray(scores)
+    tournament_ix = np.random.choice(len(pop), size=k, replace=False)
+    tournament_scores = scores[tournament_ix]
+    winner_in_tournament_ix = np.argmin(tournament_scores)
+    winner_ix = tournament_ix[winner_in_tournament_ix]
+
+    return pop[winner_ix]
 
 
 def crossover_single_point(p1, p2, r_cross):
@@ -124,7 +125,10 @@ def hybrid_genetic_algorithm(objective_func, bounds, n_dim, n_bits, n_iter, n_po
                     print(f"> Gen {gen}, Nou optim: f(x) = {best_eval:.8f}")
 
         history.append(best_eval)
-        selected = [selection_tournament(pop, scores) for _ in range(n_pop)]
+
+        # --- CORECTIE APLICATA AICI ---
+       
+        selected = [selection_tournament_correct(pop, scores) for _ in range(n_pop)]
 
         children = []
         for i in range(0, n_pop, 2):
@@ -248,7 +252,7 @@ if __name__ == '__main__':
     dimensions_to_test = [2, 30, 100]
 
     for func_name, (func, bounds) in functions_to_test.items():
-       
+        
         n_bits = calculate_n_bits(bounds, PRECISION)
 
         for dim in dimensions_to_test:
@@ -300,4 +304,3 @@ if __name__ == '__main__':
                 plot_solution_space(func, bounds, best_run_solution, title)
 
             save_summary_to_txt(title, final_scores, avg_duration, best_run_solution)
-
